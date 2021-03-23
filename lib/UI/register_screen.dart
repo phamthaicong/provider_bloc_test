@@ -48,20 +48,16 @@ class Register extends State<RegisterScreen> {
     this.setState(() {
       imagePicker = File(picture.path);
     });
-    print("link---> $ImageURL");
     StorageReference reference = FirebaseStorage.instance.ref().child('${DateTime.now().millisecondsSinceEpoch.toString()}.png');
-    print("link1---> $ImageURL");
     StorageUploadTask uploadTask = reference.putFile(imagePicker);
-    print("link2---> $ImageURL");
     StorageTaskSnapshot storageTaskSnapshot;
-    print("link3---> $ImageURL");
     uploadTask.onComplete.then((value)  {
-      print("link4---> $ImageURL");
       if(value.error==null){
         storageTaskSnapshot = value;
         storageTaskSnapshot.ref.getDownloadURL().then((imageURL) {
-          print("link5---> $ImageURL");
-          ImageURL=imageURL;
+          this.setState(() {
+            ImageURL=imageURL;
+          });
         });
       }
     });

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -45,22 +46,18 @@ class Profile extends State<ProfileScreen> {
     this.setState(() {
       imagePicker = File(picture.path);
     });
-    print("link---> $ImageURL");
-    StorageReference reference = FirebaseStorage.instance.ref().child('${DateTime.now().millisecondsSinceEpoch.toString()}.png');
-    print("link1---> $ImageURL");
+    StorageReference reference = FirebaseStorage.instance
+        .ref()
+        .child('${DateTime.now().millisecondsSinceEpoch.toString()}.png');
     StorageUploadTask uploadTask = reference.putFile(imagePicker);
-    print("link2---> $ImageURL");
-    StorageTaskSnapshot storageTaskSnapshot;
-    print("link3---> $ImageURL");
-    uploadTask.onComplete.then((value)  {
-      print("link4---> $ImageURL");
-      if(value.error==null){
-        storageTaskSnapshot = value;
-        storageTaskSnapshot.ref.getDownloadURL().then((imageURL) {
-          print("link5---> $ImageURL");
-          ImageURL=imageURL;
+    uploadTask.onComplete.then(( StorageTaskSnapshot value) {
+      value.ref.getDownloadURL().then((imageURL) {
+        print('linh>>>>>>> $imageURL');
+        this.setState(() {
+          ImageURL = imageURL;
         });
-      }
+      });
+      print("image link ->>>$ImageURL");
     });
   }
 
@@ -77,7 +74,6 @@ class Profile extends State<ProfileScreen> {
         .where('email', isEqualTo: emailLocal)
         .get()
         .then((querySnapshot) {
-      print(querySnapshot.documents[0]);
       querySnapshot.docs.forEach((result) {
         emailController.text = result.data()['email'];
         passwordController.text = result.data()['password'];
@@ -89,12 +85,20 @@ class Profile extends State<ProfileScreen> {
   }
 
   void updateUser() async {
+    this.setState(() {
+      onClick = true;
+    });
     firestoreInstance.collection('user').doc(uid).updateData({
+      "image": ImageURL,
       "password": passwordController.text,
       "phonenumber": phoneNumberController.text,
       "fullname": fullNameController.text,
       "email": emailController.text,
-      "image":ImageURL
+    });
+    Timer(Duration(seconds: 3), () {
+      this.setState(() {
+        onClick = false;
+      });
     });
   }
 
@@ -114,8 +118,10 @@ class Profile extends State<ProfileScreen> {
                   itemBuilder: (BuildContext context, int index) =>
                       emailLocal == snapshot.data.docs[index]["email"]
                           ? Container(
+                              padding: EdgeInsets.only(top: widthS * 0.2),
                               margin: EdgeInsets.symmetric(horizontal: 30),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   FlatButton(
                                     onPressed: () {
@@ -125,7 +131,7 @@ class Profile extends State<ProfileScreen> {
                                       borderRadius: BorderRadius.circular(75),
                                       child: imagePicker == null
                                           ? Image.network(
-                                             '${snapshot.data.docs[index]["image"]}',
+                                              '${snapshot.data.docs[index]["image"] == null ? 'https://www.esoftner.com/wp-content/uploads/2019/11/Balsamiq-Mockups.png' : snapshot.data.docs[index]["image"]}',
                                               width: 150,
                                               height: 150,
                                               fit: BoxFit.cover,
@@ -247,7 +253,6 @@ class Profile extends State<ProfileScreen> {
                                                   Radius.circular(10))),
                                         ),
                                       )),
-
                                   Container(
                                     padding: EdgeInsets.only(left: 5),
                                     child: Row(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Widget/logo_nms.dart';
 import '../Common/navigation_extention.dart';
+import 'bottom_navigation.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
 import '../Common/common.dart' as Common;
@@ -21,8 +22,7 @@ class Splash extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: Common.TIME_SCREEN),
-        () => context.replaceWith(LoginScreen()));
+    Timer(Duration(seconds: Common.TIME_SCREEN), () => autoLogin());
     // autoLogin();
   }
 
@@ -30,12 +30,18 @@ class Splash extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username');
     String password = prefs.getString('password');
-    logInBloc.doLogin(username, password).then((value) => {
-          if (value == true)
-            {context.replaceWith(HomeScreen())}
-          else
-            {context.replaceWith(LoginScreen())}
-        });
+    if (username == null || password == null) {
+      context.replaceWith(LoginScreen());
+    } else {
+      logInBloc.doLogin(username, password).then((value) {
+        print('login status--->$value');
+        if (value == true) {
+          context.replaceWith(BottomNavigation());
+        } else {
+          context.replaceWith(LoginScreen());
+        }
+      });
+    }
   }
 
   @override
