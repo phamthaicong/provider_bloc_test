@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "43538792810",
+    "project_id": "testbloc-d9cab",
+    "storage_bucket": "testbloc-d9cab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43538792810:android:5ff91f4e5a1058957d6513",
+        "android_client_info": {
+          "package_name": "congpt.provider_bloc_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43538792810-vu9c0q2he1ovdps35r8vhsole770o2tg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI4Yfw7g19QCdr_O7uZEholcZ14atRx38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43538792810-vu9c0q2he1ovdps35r8vhsole770o2tg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
