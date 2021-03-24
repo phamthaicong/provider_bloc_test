@@ -285,20 +285,13 @@ class Profile extends State<ProfileScreen> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(Common.RADIUS)),
                                           ),
-                                          child: onClick == true
-                                              ? Text(
-                                                  'Cập nhật',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontFamily: 'Roboto',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              : CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation(
-                                                          Colors.white),
-                                                ),
+                                          child: Text(
+                                            'Cập nhật',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Roboto',
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                           onPressed: () {
                                             updateUser();
                                           },
@@ -324,7 +317,9 @@ class Profile extends State<ProfileScreen> {
                                                 fontFamily: 'Roboto',
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            logout();
+                                          },
                                         ),
                                       ),
                                     ),
@@ -345,5 +340,9 @@ class Profile extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  void logout() async{
+
   }
 }

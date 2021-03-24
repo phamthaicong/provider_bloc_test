@@ -8,6 +8,7 @@ class LogInBloc {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final emailController = StreamController<String>.broadcast();
   final passwordController = StreamController<String>.broadcast();
+  // ignore: close_sinks
   final uiController = StreamController<String>.broadcast();
   final value = null;
   get emailStream  => emailController.stream;
@@ -20,13 +21,13 @@ class LogInBloc {
     final  user = (await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
-    ))
-        .user;
+    )).user;
 
     if (user != null) {
       await prefs.setString('username', email);
       await prefs.setString('password', password);
       await prefs.setString('uid', user.uid);
+
       return true;
     }
     return false;

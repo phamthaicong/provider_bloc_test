@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider_bloc_test/BloC/postImageToCould.dart';
+import 'package:provider_bloc_test/BloC/posts_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Common/navigation_extention.dart';
 import 'bottom_navigation.dart';
 
@@ -13,10 +15,18 @@ class PostScreen extends StatefulWidget {
 }
 
 class Post extends State<PostScreen> {
-  TextEditingController statusController = TextEditingController();
+  final statusWrite = TextEditingController();
   final picker = ImagePicker();
+  String userId,username;
   File imagePicker;
   String urlImage;
+
+  void getLocalUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userid = prefs.getString('uid');
+    this.setState(() {
+
+    });}
 
   Widget userPost(double widthS, double heightS) {
     return Container(
@@ -52,6 +62,7 @@ class Post extends State<PostScreen> {
               )
             ],
           ),
+
           imagePicker == null
               ? Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -74,7 +85,7 @@ class Post extends State<PostScreen> {
                   child: ListView(
                     children: [
                       TextField(
-                        controller: statusController,
+                        controller: statusWrite,
                         minLines: 1,
                         maxLines: 5,
                         decoration: InputDecoration(
@@ -145,7 +156,9 @@ class Post extends State<PostScreen> {
                     ],
                   ),
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  PostBloc().PostNews(userId, urlImage, statusWrite.text, username, DateTime.now().millisecondsSinceEpoch.toString());
+                }),
           ),
           Container(
             margin: EdgeInsets.only(top: 2),
@@ -204,8 +217,10 @@ class Post extends State<PostScreen> {
               width: 75,
               height: 35,
               child: RaisedButton(
-                color: statusController.text == null ? Colors.grey : Colors.blue,
-                onPressed: () {},
+                color:  Colors.blue,
+                onPressed: () {
+
+                },
                 child: Text(
                   "Đăng",
                   style: TextStyle(
@@ -230,6 +245,10 @@ class Post extends State<PostScreen> {
    });
    print('link--->$urlImage');
   }
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -245,4 +264,8 @@ class Post extends State<PostScreen> {
       ),
     );
   }
+
+
+
+
 }
