@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider_bloc_test/UI/home_screen.dart';
 import '../Common/navigation_extention.dart';
+import 'bottom_navigation.dart';
 
 class SeachScreen extends StatefulWidget {
   @override
@@ -31,7 +31,7 @@ class Seach extends State<SeachScreen> {
                       color: Colors.black,
                     ),
                     onPressed: () {
-                      context.replaceWith(HomeScreen());
+                      context.replaceWith(BottomNavigation());
                     },
                   ),
                   Container(
@@ -49,6 +49,14 @@ class Seach extends State<SeachScreen> {
                 ],
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(top: 60),
+              child: ListView(
+                children: [
+
+                ],
+              ),
+            )
           ],
         ),
       ),

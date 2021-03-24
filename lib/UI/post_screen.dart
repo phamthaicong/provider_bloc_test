@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider_bloc_test/UI/home_screen.dart';
 import '../Common/navigation_extention.dart';
+import 'bottom_navigation.dart';
 
 
 class PostScreen extends StatefulWidget{
@@ -11,6 +11,13 @@ class PostScreen extends StatefulWidget{
 
 }
 class Post extends State<PostScreen>{
+  Widget userPost(){
+    return ListView(
+      children: [
+        
+      ],
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,18 +25,41 @@ class Post extends State<PostScreen>{
         child: Container(
           child:Column(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.grey, width: 1))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          context.replaceWith(BottomNavigation());
+                        },
+                      ),
+                        Container(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text('Tạo bài viết',style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                        ),],
                     ),
-                    onPressed: () {
-                      context.replaceWith(HomeScreen());
-                    },
-                  )
-                ],
+                   Container(
+                     padding: EdgeInsets.only(right: 15),
+                     child:  SizedBox(
+                       width: 75,
+                       height: 35,
+                       child: RaisedButton(
+                         onPressed: (){},
+                         child: Text("Đăng"),
+                       ),
+                     ),
+                   )
+                  ],
+                ),
               ),
             ],
           ),
