@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:provider_bloc_test/BloC/postImageToCould.dart';
 import 'package:provider_bloc_test/BloC/registor_bloc.dart';
 import 'package:provider_bloc_test/UI/login_screen.dart';
 import 'package:provider_bloc_test/Widget/validation.dart';
 import '../Common/navigation_extention.dart';
 import '../Common/colors.dart' as Common;
 import '../Common/common.dart' as Common;
+
 // import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +39,7 @@ class Register extends State<RegisterScreen> {
       onClick = !onClick;
     });
     RegistorBloc()
-        .resgitor(ImageURL,emailController.text, passwordController.text,
+        .resgitor(ImageURL, emailController.text, passwordController.text,
             fullNameController.text, phoneNumberController.text)
         .then((value) => Timer(
             Duration(seconds: 2), () => context.replaceWith(LoginScreen())));
@@ -48,20 +50,10 @@ class Register extends State<RegisterScreen> {
     this.setState(() {
       imagePicker = File(picture.path);
     });
-    StorageReference reference = FirebaseStorage.instance.ref().child('${DateTime.now().millisecondsSinceEpoch.toString()}.png');
-    StorageUploadTask uploadTask = reference.putFile(imagePicker);
-    StorageTaskSnapshot storageTaskSnapshot;
-    uploadTask.onComplete.then((value)  {
-      if(value.error==null){
-        storageTaskSnapshot = value;
-        storageTaskSnapshot.ref.getDownloadURL().then((imageURL) {
-          this.setState(() {
-            ImageURL=imageURL;
-          });
-        });
-      }
+    String urlImage = await PostImage().PostImageToCloud(imagePicker);
+    this.setState(() {
+      ImageURL = urlImage;
     });
-
   }
 
   @override
@@ -334,6 +326,4 @@ class Register extends State<RegisterScreen> {
       ),
     );
   }
-
-
 }

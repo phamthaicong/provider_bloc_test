@@ -8,6 +8,7 @@ const colorBtnUp = const Color(0xFF039BE5);
 const ColorBottom = Color(0xFFFFFFFF);
 const BottomActive = Color(0xFF039BE5);
 const ButtomDis = Color(0xFFB4AFAF);
+const textInputSeach =Color(0xFFD7D7D7);
 
 
 // styles

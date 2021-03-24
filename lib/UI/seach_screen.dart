@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider_bloc_test/Common/colors.dart' as Common;
 import '../Common/navigation_extention.dart';
 import 'bottom_navigation.dart';
 
 class SeachScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return Seach();
   }
 }
@@ -39,24 +39,18 @@ class Seach extends State<SeachScreen> {
                     height: 40,
                     child: TextField(
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(top: 10,bottom: 10,left: 20),
+                        fillColor:Common.textInputSeach,
+                        filled: true,
+                        contentPadding:
+                            EdgeInsets.only(top: 10, bottom: 10, left: 20),
                         hintText: " Tìm kiếm ",
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)))),
+                        border: InputBorder.none,
+                      ),
                     ),
                   )
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 60),
-              child: ListView(
-                children: [
-
-                ],
-              ),
-            )
           ],
         ),
       ),

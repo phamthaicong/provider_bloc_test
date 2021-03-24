@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider_bloc_test/BloC/log_in_bloc.dart';
-import 'package:provider_bloc_test/UI/login_screen.dart';
-import 'package:provider_bloc_test/Widget/validation.dart';
+import 'package:provider_bloc_test/BloC/postImageToCould.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Common/navigation_extention.dart';
 import '../Common/colors.dart' as Common;
 import '../Common/common.dart' as Common;
 import 'package:flutter/material.dart';
@@ -46,19 +43,11 @@ class Profile extends State<ProfileScreen> {
     this.setState(() {
       imagePicker = File(picture.path);
     });
-    StorageReference reference = FirebaseStorage.instance
-        .ref()
-        .child('${DateTime.now().millisecondsSinceEpoch.toString()}.png');
-    StorageUploadTask uploadTask = reference.putFile(imagePicker);
-    uploadTask.onComplete.then(( StorageTaskSnapshot value) {
-      value.ref.getDownloadURL().then((imageURL) {
-        print('linh>>>>>>> $imageURL');
-        this.setState(() {
-          ImageURL = imageURL;
-        });
-      });
-      print("image link ->>>$ImageURL");
+    String urlImage = await PostImage().PostImageToCloud(imagePicker);
+    this.setState(() {
+      ImageURL = urlImage;
     });
+    print('profile image$ImageURL');
   }
 
   void getLocalUser() async {
@@ -313,6 +302,29 @@ class Profile extends State<ProfileScreen> {
                                           onPressed: () {
                                             updateUser();
                                           },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  IntrinsicHeight(
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: RaisedButton(
+                                          color: Colors.red,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(Common.RADIUS)),
+                                          ),
+                                          child: Text(
+                                            'Đăng xuất',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Roboto',
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          onPressed: () {},
                                         ),
                                       ),
                                     ),
