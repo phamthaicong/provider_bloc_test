@@ -158,9 +158,7 @@ class Post extends State<PostScreen> {
                     ],
                   ),
                 ),
-                onPressed: () {
-
-                }),
+                onPressed: () {}),
           ),
           Container(
             margin: EdgeInsets.only(top: 2),
@@ -256,7 +254,7 @@ class Post extends State<PostScreen> {
 
   void _getLocalUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String uid= prefs.getString('uid');
+    String uid = prefs.getString('uid');
     firestoreInstance
         .collection("user")
         .where('email', isEqualTo: prefs.getString('username'))

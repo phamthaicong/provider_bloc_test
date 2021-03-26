@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider_bloc_test/UI/profile_friend_screen.dart';
 import 'package:provider_bloc_test/UI/seach_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Common/navigation_extention.dart';
@@ -25,7 +26,9 @@ class Home extends State<HomeScreen> {
     getLocalUser();
   }
 
-  void getLocalUser() async {
+
+
+void getLocalUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     firestoreInstance
         .collection("user")
@@ -89,6 +92,7 @@ class Home extends State<HomeScreen> {
     );
   }
 
+
   String readTimestamp(int timestamp) {
     var now = DateTime.now();
     var format = DateFormat('HH:mm a');
@@ -148,38 +152,42 @@ class Home extends State<HomeScreen> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(left: 13),
-                            child: Column(
-                              children: [
-                                Text(
-                                  '${snapshot.data.docs[index]['userCreator']}',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
+                          FlatButton(
+                              onPressed: () {
+                              context.navigateTo(ProfileFriend(uid: snapshot.data.docs[index]['userId']));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(left: 13),
+                                child: Column(
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Text(
-                                        '${readTimestamp(int.parse(snapshot.data.docs[index]['timetamp']))}',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                        ),
-                                      ),
+                                    Text(
+                                      '${snapshot.data.docs[index]['userCreator']}',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    ClipRRect(
-                                      child: Icon(
-                                        Icons.timelapse,
-                                        size: 10,
-                                      ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.only(top: 5),
+                                          child: Text(
+                                            '${readTimestamp(int.parse(snapshot.data.docs[index]['timetamp']))}',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                        ClipRRect(
+                                          child: Icon(
+                                            Icons.timelapse,
+                                            size: 10,
+                                          ),
+                                        )
+                                      ],
                                     )
                                   ],
-                                )
-                              ],
-                            ),
-                          ),
+                                ),
+                              )),
                         ],
                       ),
                       Container(
