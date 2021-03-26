@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider_bloc_test/BloC/log_in_bloc.dart';
 import 'package:provider_bloc_test/BloC/postImageToCould.dart';
+import 'package:provider_bloc_test/UI/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Common/colors.dart' as Common;
 import '../Common/common.dart' as Common;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../Common/navigation_extention.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -343,6 +345,10 @@ class Profile extends State<ProfileScreen> {
   }
 
   void logout() async{
-
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.remove('username');
+    preferences.remove('password');
+    preferences.remove('uid');
+    context.replaceAllWith(LoginScreen());
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider_bloc_test/BloC/postImageToCould.dart';
@@ -16,17 +17,11 @@ class PostScreen extends StatefulWidget {
 
 class Post extends State<PostScreen> {
   final statusWrite = TextEditingController();
+  final firestoreInstance = FirebaseFirestore.instance;
   final picker = ImagePicker();
-  String userId,username;
+  String userId, username;
   File imagePicker;
-  String urlImage;
-
-  void getLocalUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String userid = prefs.getString('uid');
-    this.setState(() {
-
-    });}
+  String urlImage, imageUser;
 
   Widget userPost(double widthS, double heightS) {
     return Container(
@@ -37,22 +32,30 @@ class Post extends State<PostScreen> {
         children: [
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(75),
-                child: Image.network(
-                  'https://www.esoftner.com/wp-content/uploads/2019/11/Balsamiq-Mockups.png',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              imageUser == null
+                  ? SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(75),
+                      child: Image.network(
+                        '$imageUser',
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
               Container(
                 child: Column(
                   children: [
                     Container(
                       padding: EdgeInsets.only(left: 13),
                       child: Text(
-                        'Phạm Thái Công',
+                        '$username',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 17),
                       ),
@@ -62,7 +65,6 @@ class Post extends State<PostScreen> {
               )
             ],
           ),
-
           imagePicker == null
               ? Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -106,7 +108,7 @@ class Post extends State<PostScreen> {
                               IconButton(
                                   icon: Icon(
                                     Icons.close,
-                                    color: Colors.white,
+                                    color: Colors.red,
                                   ),
                                   onPressed: () {
                                     this.setState(() {
@@ -157,7 +159,7 @@ class Post extends State<PostScreen> {
                   ),
                 ),
                 onPressed: () {
-                  PostBloc().PostNews(userId, urlImage, statusWrite.text, username, DateTime.now().millisecondsSinceEpoch.toString());
+
                 }),
           ),
           Container(
@@ -217,9 +219,15 @@ class Post extends State<PostScreen> {
               width: 75,
               height: 35,
               child: RaisedButton(
-                color:  Colors.blue,
+                color: Colors.blue,
                 onPressed: () {
-
+                  PostBloc().PostNews(
+                      imageUser,
+                      userId,
+                      urlImage,
+                      statusWrite.text,
+                      username,
+                      DateTime.now().millisecondsSinceEpoch.toString());
                 },
                 child: Text(
                   "Đăng",
@@ -239,15 +247,35 @@ class Post extends State<PostScreen> {
     this.setState(() {
       imagePicker = File(image.path);
     });
-   String url = await PostImage().PostImageToCloud(imagePicker);
-   this.setState(() {
-     urlImage=url;
-   });
-   print('link--->$urlImage');
+    String url = await PostImage().PostImageToCloud(imagePicker);
+    this.setState(() {
+      urlImage = url;
+    });
+    print('link--->$urlImage');
   }
+
+  void _getLocalUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uid= prefs.getString('uid');
+    firestoreInstance
+        .collection("user")
+        .where('email', isEqualTo: prefs.getString('username'))
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        this.setState(() {
+          imageUser = result['image'];
+          username = result['fullname'];
+          userId = uid;
+        });
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    _getLocalUser();
   }
 
   @override
@@ -264,8 +292,4 @@ class Post extends State<PostScreen> {
       ),
     );
   }
-
-
-
-
 }

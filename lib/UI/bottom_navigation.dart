@@ -43,7 +43,7 @@ class Body extends State<BottomNavigation> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Trang chủ'),
+            title: Text('Bảng tin'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.supervised_user_circle_outlined),
