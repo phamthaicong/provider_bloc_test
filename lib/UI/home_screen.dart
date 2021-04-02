@@ -75,7 +75,7 @@ void getLocalUser() async {
                   height: 15,
                   width: 15,
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                    valueColor: AlwaysStoppedAnimation(Colors.blue),
                   ),
                 )
               : ClipRRect(

@@ -15,6 +15,7 @@ class RegistorBloc {
   Future<bool> resgitor(String urlimage,String email, String pass, String fullname, String phonenumber) async {
    await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: pass);
     fireStoreInstance.collection("user").doc(_firebaseAuth.currentUser.uid).set({
+      "uid":_firebaseAuth.currentUser.uid,
       "image":urlimage,
       "email": email,
       "fullname": fullname,

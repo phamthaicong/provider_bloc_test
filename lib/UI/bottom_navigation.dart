@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider_bloc_test/UI/home_screen.dart';
 
+import 'friend_screen.dart';
 import 'profile_screen.dart';
-
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -10,7 +10,6 @@ class BottomNavigation extends StatefulWidget {
     // TODO: implement createState
     return Body();
   }
-
 }
 
 class Body extends State<BottomNavigation> {
@@ -30,6 +29,8 @@ class Body extends State<BottomNavigation> {
       case 0:
         return HomeScreen();
       case 1:
+        return FriendScreen();
+      case 2:
         return ProfileScreen();
     }
   }
@@ -46,9 +47,13 @@ class Body extends State<BottomNavigation> {
             title: Text('Bảng tin'),
           ),
           BottomNavigationBarItem(
+              icon: Icon(Icons.supervised_user_circle_outlined),
+              title: Text('Bạn bè')),
+          BottomNavigationBarItem(
             icon: Icon(Icons.supervised_user_circle_outlined),
             title: Text('Cá nhân'),
           ),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
@@ -57,5 +62,4 @@ class Body extends State<BottomNavigation> {
       ),
     );
   }
-
 }
