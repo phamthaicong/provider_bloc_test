@@ -344,7 +344,7 @@ class Profile extends State<ProfileScreen> {
     );
   }
 
-  void logout() async{
+  void logout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove('username');
     preferences.remove('password');

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ProfileFriend extends StatefulWidget {
   String uid;
 
@@ -8,7 +9,6 @@ class ProfileFriend extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return Profile(uid: uid);
   }
 }
@@ -34,16 +34,15 @@ class Profile extends State<ProfileFriend> {
         .then((dataQuery) {
       dataQuery.docs.forEach((value) {
         print('${value['fullname']}');
-       this.setState(() {
-         name =value['fullname'];
-       });
+        this.setState(() {
+          name = value['fullname'];
+        });
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Center(
         child: Text('$uid'),

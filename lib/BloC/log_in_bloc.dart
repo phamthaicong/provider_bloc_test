@@ -58,7 +58,6 @@ class LogInBloc {
       });
     });
   }
-
   void dispose() {
     emailController.close();
     passwordController.close();

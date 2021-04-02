@@ -17,7 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class Home extends State<HomeScreen> {
-  final firestoreInstance = FirebaseFirestore.instance;
+  final fireStoreInstance = FirebaseFirestore.instance;
+
   String imageUrl;
 
   @override
@@ -26,11 +27,9 @@ class Home extends State<HomeScreen> {
     getLocalUser();
   }
 
-
-
-void getLocalUser() async {
+  void getLocalUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    firestoreInstance
+    fireStoreInstance
         .collection("user")
         .where('email', isEqualTo: prefs.getString('username'))
         .get()
@@ -92,7 +91,6 @@ void getLocalUser() async {
     );
   }
 
-
   String readTimestamp(int timestamp) {
     var now = DateTime.now();
     var format = DateFormat('HH:mm a');
@@ -122,11 +120,21 @@ void getLocalUser() async {
     return time;
   }
 
+  addFollow(String uid, String image, String username) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print('uerId ---> $uid');
+    // ignore: unnecessary_statements
+    fireStoreInstance
+        .collection('addFollow')
+        .doc(prefs.getString('uid'))
+        .set({"image": image, "username": username, "userid": uid});
+  }
+
   Widget userPost(double heightS) {
     return Container(
       padding: EdgeInsets.only(top: 55),
       child: StreamBuilder(
-        stream: firestoreInstance
+        stream: fireStoreInstance
             .collection("post")
             .orderBy('timetamp', descending: true)
             .limit(20)
@@ -154,7 +162,8 @@ void getLocalUser() async {
                           ),
                           FlatButton(
                               onPressed: () {
-                              context.navigateTo(ProfileFriend(uid: snapshot.data.docs[index]['userId']));
+                                context.navigateTo(ProfileFriend(
+                                    uid: snapshot.data.docs[index]['userId']));
                               },
                               child: Container(
                                 padding: EdgeInsets.only(left: 13),
@@ -238,7 +247,6 @@ void getLocalUser() async {
                                 onPressed: () {}),
                             FlatButton(
                                 child: Container(
-                                  // margin: EdgeInsets.only(left: 10),
                                   child: Row(
                                     children: [
                                       Icon(Icons.flag_outlined),
@@ -249,11 +257,17 @@ void getLocalUser() async {
                                     ],
                                   ),
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  addFollow(
+                                      snapshot.data.docs[index]['userId'],
+                                      snapshot.data.docs[index]['imageUser'],
+                                      snapshot.data.docs[index]['userCreator']);
+                                }),
                           ],
                         ),
                       )
                     ],
+
                   ),
                 );
               },
