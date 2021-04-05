@@ -17,6 +17,7 @@ class Profile extends State<ProfileFriend> {
   String uid;
   final fireStore = Firestore.instance;
   String name;
+  String imageUser;
 
   Profile({@required this.uid});
 
@@ -33,19 +34,24 @@ class Profile extends State<ProfileFriend> {
         .get()
         .then((dataQuery) {
       dataQuery.docs.forEach((value) {
-        print('${value['fullname']}');
         this.setState(() {
           name = value['fullname'];
+          imageUser=value['image'];
         });
       });
     });
+    print('hello---->$name');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('$uid'),
+      body: Column(
+       children: [
+         ClipRRect(
+
+         )
+       ],
       ),
     );
   }

@@ -41,7 +41,6 @@ class Home extends State<HomeScreen> {
       });
     });
   }
-
   Widget headerHome() {
     return Container(
       decoration: BoxDecoration(
@@ -90,7 +89,6 @@ class Home extends State<HomeScreen> {
       ),
     );
   }
-
   String readTimestamp(int timestamp) {
     var now = DateTime.now();
     var format = DateFormat('HH:mm a');
@@ -119,7 +117,6 @@ class Home extends State<HomeScreen> {
 
     return time;
   }
-
   addFollow(String uid, String image, String username) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('uerId ---> $uid');
@@ -129,7 +126,6 @@ class Home extends State<HomeScreen> {
         .doc(prefs.getString('uid'))
         .set({"image": image, "username": username, "userid": uid});
   }
-
   Widget userPost(double heightS) {
     return Container(
       padding: EdgeInsets.only(top: 55),
@@ -244,7 +240,9 @@ class Home extends State<HomeScreen> {
                                     ],
                                   ),
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  print('thích');
+                                }),
                             FlatButton(
                                 child: Container(
                                   child: Row(

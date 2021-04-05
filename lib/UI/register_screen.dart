@@ -8,8 +8,6 @@ import 'package:provider_bloc_test/Widget/validation.dart';
 import '../Common/navigation_extention.dart';
 import '../Common/colors.dart' as Common;
 import '../Common/common.dart' as Common;
-
-// import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

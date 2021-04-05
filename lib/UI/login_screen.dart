@@ -33,7 +33,7 @@ class Login extends State<LoginScreen> {
     LogInBloc()
         .doLogin(usernameControl.text, passwordControl.text)
         .then((value) => {
-              print("value--->${value}"),
+              print("value--->$value"),
               if (value == true) {context.replaceWith(BottomNavigation())}
             });
   }
@@ -85,9 +85,6 @@ class Login extends State<LoginScreen> {
       ],
     );
   }
-
-
-
 
   Widget InputPassword() {
     return Column(
