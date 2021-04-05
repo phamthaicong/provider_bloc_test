@@ -15,17 +15,18 @@ class Friend extends State<FriendScreen> {
   @override
   void initState() {
     super.initState();
+    getDataUser();
   }
 
   getDataUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     fireStoreInstance
         .collection('addFollow')
-        .where("uid", isEqualTo: prefs.getString('uid'))
+        .where('uid', isEqualTo: prefs.getString('uid'))
         .get()
         .then((querySnapshot) {
-      querySnapshot.docs.forEach((value) {
-
+      querySnapshot.docs.forEach((result) {
+        print('${result['image']}');
       });
     });
   }

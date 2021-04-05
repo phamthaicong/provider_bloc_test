@@ -50,10 +50,9 @@ class Body extends State<BottomNavigation> {
               icon: Icon(Icons.supervised_user_circle_outlined),
               title: Text('Bạn bè')),
           BottomNavigationBarItem(
-            icon: Icon(Icons.supervised_user_circle_outlined),
+            icon: Icon(Icons.account_circle),
             title: Text('Cá nhân'),
           ),
-
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
