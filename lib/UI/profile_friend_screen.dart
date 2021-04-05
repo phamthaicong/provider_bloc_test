@@ -17,6 +17,7 @@ class Profile extends State<ProfileFriend> {
   String uid;
   final fireStore = Firestore.instance;
   String name;
+  String imageUser;
 
   Profile({@required this.uid});
 
@@ -36,6 +37,7 @@ class Profile extends State<ProfileFriend> {
         print('${value['fullname']}');
         this.setState(() {
           name = value['fullname'];
+          imageUser = value['image'];
         });
       });
     });
@@ -44,8 +46,34 @@ class Profile extends State<ProfileFriend> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('$uid'),
+      body:SafeArea(
+        child:  Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(75),
+                    child: Image.network(imageUser,width: 150,height: 150,fit: BoxFit.cover,),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('$name',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)
+                ],
+              ),
+            ),
+            Container()
+          ],
+        ),
       ),
     );
   }
