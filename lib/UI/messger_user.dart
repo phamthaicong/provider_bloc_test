@@ -12,6 +12,13 @@ class MessgerScreen extends StatefulWidget{
 
 class Messger extends State<MessgerScreen>{
   @override
+  void initState() {
+    super.initState();
+  }
+  Widget buildChat(){
+
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
