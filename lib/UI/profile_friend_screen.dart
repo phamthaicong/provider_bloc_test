@@ -198,7 +198,7 @@ class Profile extends State<ProfileFriend> {
                                       Icon(Icons.flag_outlined),
                                       Container(
                                         margin: EdgeInsets.only(left: 15),
-                                        child: Text('Theo dõi'),
+                                        child: Text('Theo  dõi'),
                                       )
                                     ],
                                   ),
