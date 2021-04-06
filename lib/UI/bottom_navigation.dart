@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider_bloc_test/UI/home_screen.dart';
-
+import 'package:provider_bloc_test/UI/messger_user.dart';
 import 'friend_screen.dart';
 import 'profile_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return Body();
   }
 }
@@ -21,6 +20,7 @@ class Body extends State<BottomNavigation> {
     });
   }
 
+  // ignore: missing_return
   Widget _getPage(int page) {
     if (page == null) {
       return HomeScreen();
@@ -31,6 +31,8 @@ class Body extends State<BottomNavigation> {
       case 1:
         return FriendScreen();
       case 2:
+        return MessgerScreen();
+      case 3 :
         return ProfileScreen();
     }
   }
@@ -50,9 +52,14 @@ class Body extends State<BottomNavigation> {
               icon: Icon(Icons.supervised_user_circle_outlined),
               title: Text('Bạn bè')),
           BottomNavigationBarItem(
+              icon: Icon(Icons.message),
+              title: Text('Chat')
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             title: Text('Cá nhân'),
           ),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,

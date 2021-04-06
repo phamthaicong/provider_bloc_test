@@ -12,7 +12,6 @@ class ForgetScreen extends StatefulWidget {
 class Forget extends State<ForgetScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: SafeArea(
         child: Column(
