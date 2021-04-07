@@ -75,7 +75,7 @@ class Profile extends State<ProfileFriend> {
 
   Widget userPost(double heightS) {
     return Container(
-      height: heightS*0.7,
+      height: heightS * 0.7,
       padding: EdgeInsets.only(top: 5),
       child: StreamBuilder(
         stream: fireStore
@@ -198,7 +198,7 @@ class Profile extends State<ProfileFriend> {
                                       Icon(Icons.flag_outlined),
                                       Container(
                                         margin: EdgeInsets.only(left: 15),
-                                        child: Text('Theo  dõi'),
+                                        child: Text('Theo dõi'),
                                       )
                                     ],
                                   ),
