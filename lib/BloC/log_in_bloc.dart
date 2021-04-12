@@ -12,10 +12,13 @@ class LogInBloc {
   String uid;
   final emailController = StreamController<String>.broadcast();
   final passwordController = StreamController<String>.broadcast();
+
   // ignore: close_sinks
   final imageController = StreamController<String>.broadcast();
+
   // ignore: close_sinks
   final uiController = StreamController<String>.broadcast();
+
   // ignore: close_sinks
   final usernameController = StreamController<String>.broadcast();
   final value = null;
@@ -28,13 +31,15 @@ class LogInBloc {
 
   get imageStream => imageController.stream;
 
-  Future<bool> doLogin(String email, String password,BuildContext context) async {
+  Future<bool> doLogin(
+      String email, String password, BuildContext context) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final user = (await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
-      )).user;
+      ))
+          .user;
       if (user != null) {
         await prefs.setString('username', email);
         await prefs.setString('password', password);
@@ -44,10 +49,9 @@ class LogInBloc {
         return true;
       }
       return false;
-    }catch(e){
+    } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('${e.code}')));
-
     }
   }
 
@@ -65,6 +69,7 @@ class LogInBloc {
       });
     });
   }
+
   void dispose() {
     emailController.close();
     passwordController.close();

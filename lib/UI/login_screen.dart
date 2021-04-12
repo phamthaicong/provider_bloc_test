@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider_bloc_test/UI/bottom_navigation.dart';
 import 'package:provider_bloc_test/UI/forget_screen.dart';
-import 'package:provider_bloc_test/UI/home_screen.dart';
+// import 'package:provider_bloc_test/UI/home_screen.dart';
 import 'package:provider_bloc_test/UI/register_screen.dart';
 import 'package:provider_bloc_test/Widget/flat_button_action.dart';
 import '../Widget/logo_nms.dart';
@@ -26,14 +27,19 @@ class Login extends State<LoginScreen> {
   final logBloc = LogInBloc();
   final _formkey = GlobalKey<FormState>();
 
-  void loginUser(BuildContext context) async {
+  void loginUser(BuildContext context) {
     this.setState(() {
-      // ignore: unnecessary_statements
-      onClick != onClick;
+      onClick = true;
     });
-
+    Timer(
+        Duration(seconds: 2),
+        () => {
+              this.setState(() {
+                onClick = false;
+              })
+            });
     LogInBloc()
-        .doLogin(usernameControl.text, passwordControl.text,context)
+        .doLogin(usernameControl.text, passwordControl.text, context)
         .then((value) => {
               print("value--->$value"),
               if (value == true) {context.replaceWith(BottomNavigation())}
@@ -65,10 +71,9 @@ class Login extends State<LoginScreen> {
                   color: Colors.grey[700]),
               controller: usernameControl,
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)))
-              ),
-              validator: (value){
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)))),
+              validator: (value) {
                 return Validation().checkUsername(value);
               },
             )),
@@ -95,7 +100,7 @@ class Login extends State<LoginScreen> {
             padding: EdgeInsets.only(top: 10),
             height: 80,
             child: TextFormField(
-              validator: (value){
+              validator: (value) {
                 return Validation().checkPassword(value);
               },
               maxLength: 12,
@@ -148,10 +153,9 @@ class Login extends State<LoginScreen> {
                     valueColor: AlwaysStoppedAnimation(Colors.white),
                   ),
             onPressed: () {
-              if(_formkey.currentState.validate()){
+              if (_formkey.currentState.validate()) {
                 loginUser(context);
               }
-
             },
           ),
         ),
