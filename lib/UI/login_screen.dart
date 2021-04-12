@@ -24,6 +24,7 @@ class Login extends State<LoginScreen> {
   bool showPass = true;
   bool onClick = false;
   final logBloc = LogInBloc();
+  final _formkey = GlobalKey<FormState>();
 
   void loginUser() async {
     this.setState(() {
@@ -56,7 +57,7 @@ class Login extends State<LoginScreen> {
         Container(
             padding: EdgeInsets.only(bottom: 10, top: 10),
             height: 80,
-            child: TextField(
+            child: TextFormField(
               style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
@@ -64,24 +65,12 @@ class Login extends State<LoginScreen> {
               controller: usernameControl,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                // icon: Icon(Icons.supervised_user_circle_outlined)
+                    borderRadius: BorderRadius.all(Radius.circular(10)))
               ),
+              validator: (value){
+                return Validation().checkUsername(value);
+              },
             )),
-        Container(
-          padding: EdgeInsets.only(left: 10, bottom: 10),
-          child: Row(
-            children: [
-              Text(
-                "${Validation().checkUsername(usernameControl.text)}",
-                style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-        ),
       ],
     );
   }
@@ -104,7 +93,10 @@ class Login extends State<LoginScreen> {
         Container(
             padding: EdgeInsets.only(top: 10),
             height: 80,
-            child: TextField(
+            child: TextFormField(
+              validator: (value){
+                return Validation().checkPassword(value);
+              },
               maxLength: 12,
               style: TextStyle(
                   fontSize: 17,
@@ -129,20 +121,6 @@ class Login extends State<LoginScreen> {
                     },
                   )),
             )),
-        Container(
-          padding: EdgeInsets.only(left: 10, bottom: 10),
-          child: Row(
-            children: [
-              Text(
-                "${Validation().checkPassword(passwordControl.text)}",
-                style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-        ),
       ],
     );
   }
@@ -169,7 +147,10 @@ class Login extends State<LoginScreen> {
                     valueColor: AlwaysStoppedAnimation(Colors.white),
                   ),
             onPressed: () {
-              loginUser();
+              if(_formkey.currentState.validate()){
+                loginUser();
+              }
+
             },
           ),
         ),
@@ -184,33 +165,36 @@ class Login extends State<LoginScreen> {
         body: SafeArea(
       child: SingleChildScrollView(
         padding: EdgeInsets.only(left: 20, right: 20, top: widthS * 0.5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            WidgetLogo(),
-            Container(
-              margin: EdgeInsets.only(top: 25),
-              child: InputUser(),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15),
-              child: InputPassword(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                FlatButtonCustom(
-                    destinationTo: RegisterScreen(), name_button: "Đăng ký"),
-                FlatButtonCustom(
-                    destinationTo: ForgetScreen(),
-                    name_button: "Bạn quên mật khẩu ?")
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15),
-              child: ButtonLogin(),
-            )
-          ],
+        child: Form(
+          key: _formkey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              WidgetLogo(),
+              Container(
+                margin: EdgeInsets.only(top: 25),
+                child: InputUser(),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                child: InputPassword(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  FlatButtonCustom(
+                      destinationTo: RegisterScreen(), name_button: "Đăng ký"),
+                  FlatButtonCustom(
+                      destinationTo: ForgetScreen(),
+                      name_button: "Bạn quên mật khẩu ?")
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                child: ButtonLogin(),
+              )
+            ],
+          ),
         ),
       ),
     ));

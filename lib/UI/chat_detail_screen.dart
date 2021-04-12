@@ -16,7 +16,8 @@ class ChatDetail extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return Chat(uidNember: uidNember, nameNember: nameNember, urlImage: urlImage);
+    return Chat(
+        uidNember: uidNember, nameNember: nameNember, urlImage: urlImage);
   }
 }
 
@@ -38,7 +39,7 @@ class Chat extends State<ChatDetail> {
       "uid1": uid,
       "uid2": uidNember,
       "timetemp": DateTime.now().millisecondsSinceEpoch.toString(),
-      "messger": mess.text.toString()
+      "messger": mess.text
     });
     mess.clear();
   }

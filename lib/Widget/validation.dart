@@ -9,7 +9,7 @@ class Validation {
     if (value.isEmail() == false) {
       return "Email không đúng định dạng";
     }
-    return "";
+    return null;
   }
 
   String checkPassword(String value) {
@@ -19,7 +19,7 @@ class Validation {
     if (value.length < 8) {
       return "Mật khẩu lớn hơn 8 ký tự";
     }
-    return "";
+    return null;
   }
 
   String checkEmty(String value) {
