@@ -22,18 +22,18 @@ class Splash extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: Common.TIME_SCREEN), () => autoLogin());
+    Timer(Duration(seconds: Common.TIME_SCREEN), () => autoLogin(context));
     // autoLogin();
   }
 
-  void autoLogin() async {
+  void autoLogin(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username');
     String password = prefs.getString('password');
     if (username == null || password == null) {
       context.replaceWith(LoginScreen());
     } else {
-      logInBloc.doLogin(username, password).then((value) {
+      logInBloc.doLogin(username, password,context).then((value) {
         print('login status--->$value');
         if (value == true) {
           context.replaceWith(BottomNavigation());

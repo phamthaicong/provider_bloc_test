@@ -26,13 +26,14 @@ class Login extends State<LoginScreen> {
   final logBloc = LogInBloc();
   final _formkey = GlobalKey<FormState>();
 
-  void loginUser() async {
+  void loginUser(BuildContext context) async {
     this.setState(() {
       // ignore: unnecessary_statements
       onClick != onClick;
     });
+
     LogInBloc()
-        .doLogin(usernameControl.text, passwordControl.text)
+        .doLogin(usernameControl.text, passwordControl.text,context)
         .then((value) => {
               print("value--->$value"),
               if (value == true) {context.replaceWith(BottomNavigation())}
@@ -148,7 +149,7 @@ class Login extends State<LoginScreen> {
                   ),
             onPressed: () {
               if(_formkey.currentState.validate()){
-                loginUser();
+                loginUser(context);
               }
 
             },
