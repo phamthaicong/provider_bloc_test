@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider_bloc_test/UI/bottom_navigation.dart';
 import 'package:provider_bloc_test/UI/forget_screen.dart';
-// import 'package:provider_bloc_test/UI/home_screen.dart';
 import 'package:provider_bloc_test/UI/register_screen.dart';
 import 'package:provider_bloc_test/Widget/flat_button_action.dart';
 import '../Widget/logo_nms.dart';
@@ -27,6 +26,7 @@ class Login extends State<LoginScreen> {
   final logBloc = LogInBloc();
   final _formkey = GlobalKey<FormState>();
 
+
   void loginUser(BuildContext context) {
     this.setState(() {
       onClick = true;
@@ -46,6 +46,7 @@ class Login extends State<LoginScreen> {
             });
   }
 
+  // ignore: non_constant_identifier_names
   Widget InputUser() {
     return Column(
       children: [
@@ -81,6 +82,7 @@ class Login extends State<LoginScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget InputPassword() {
     return Column(
       children: [
@@ -131,6 +133,7 @@ class Login extends State<LoginScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget ButtonLogin() {
     return IntrinsicHeight(
       child: Container(

@@ -7,7 +7,7 @@ import 'package:provider_bloc_test/UI/seach_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Common/navigation_extention.dart';
 import '../UI/post_screen.dart';
-import '../BloC/postImageToCould.dart';
+// import '../BloC/postImageToCould.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -26,7 +26,6 @@ class Home extends State<HomeScreen> {
     super.initState();
     getLocalUser();
   }
-
   void getLocalUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     fireStoreInstance
@@ -265,7 +264,6 @@ class Home extends State<HomeScreen> {
                         ),
                       )
                     ],
-
                   ),
                 );
               },

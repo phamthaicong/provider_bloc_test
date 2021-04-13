@@ -21,9 +21,11 @@ class PostImage {
     }
   }
 
-  Future<Object>getInfoUser() async {
+  // ignore: missing_return
+  Future<Object> getInfoUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var infoUser = Firestore.instance.collection('user').doc(prefs.getString('uid'));
+    var infoUser =
+        Firestore.instance.collection('user').doc(prefs.getString('uid'));
     infoUser.get().then((value) {
       return value;
     });
