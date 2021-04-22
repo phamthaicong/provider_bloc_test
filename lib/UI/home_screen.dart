@@ -8,6 +8,7 @@ import 'package:provider_bloc_test/UI/seach_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Common/navigation_extention.dart';
 import '../UI/post_screen.dart';
+import 'package:photo_view/photo_view.dart';
 // import '../BloC/postImageToCould.dart';
 
 class HomeScreen extends StatefulWidget {

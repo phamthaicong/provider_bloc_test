@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 
 class ImageFullScreen extends StatefulWidget{
@@ -21,12 +21,8 @@ class ImageScreen extends State<ImageFullScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Image.network(
-        "$url",
-        fit: BoxFit.cover,
-        height: double.infinity,
-        width: double.infinity,
-        alignment: Alignment.center,
+      body: PhotoView(
+       imageProvider: NetworkImage(url),
       ),
     );
   }
