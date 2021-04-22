@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider_bloc_test/UI/image_full_screen.dart';
 import 'package:provider_bloc_test/UI/profile_friend_screen.dart';
 import 'package:provider_bloc_test/UI/seach_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +27,7 @@ class Home extends State<HomeScreen> {
     super.initState();
     getLocalUser();
   }
+
   void getLocalUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     fireStoreInstance
@@ -40,6 +42,7 @@ class Home extends State<HomeScreen> {
       });
     });
   }
+
   Widget headerHome() {
     return Container(
       decoration: BoxDecoration(
@@ -88,6 +91,7 @@ class Home extends State<HomeScreen> {
       ),
     );
   }
+
   String readTimestamp(int timestamp) {
     var now = DateTime.now();
     var format = DateFormat('HH:mm a');
@@ -116,6 +120,7 @@ class Home extends State<HomeScreen> {
 
     return time;
   }
+
   addFollow(String uid, String image, String username) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('uerId ---> $uid');
@@ -125,6 +130,7 @@ class Home extends State<HomeScreen> {
         .doc(prefs.getString('uid'))
         .set({"image": image, "username": username, "userid": uid});
   }
+
   Widget userPost(double heightS) {
     return Container(
       padding: EdgeInsets.only(top: 55),
@@ -206,8 +212,11 @@ class Home extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      Container(
+                      FlatButton(
                         padding: EdgeInsets.symmetric(vertical: 5),
+                        onPressed: () {
+                          context.navigateTo(ImageFullScreen(url: snapshot.data.docs[index]['imageUrl']));
+                        },
                         child: ClipRRect(
                           child: Image.network(
                             '${snapshot.data.docs[index]['imageUrl']}',

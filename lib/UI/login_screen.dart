@@ -26,7 +26,6 @@ class Login extends State<LoginScreen> {
   final logBloc = LogInBloc();
   final _formkey = GlobalKey<FormState>();
 
-
   void loginUser(BuildContext context) {
     this.setState(() {
       onClick = true;
