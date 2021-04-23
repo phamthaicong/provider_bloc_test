@@ -22,8 +22,8 @@ class ImageScreen extends State<ImageFullScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: PhotoView(
-       imageProvider: NetworkImage(url),
-      ),
+        imageProvider: NetworkImage(url),
+      )
     );
   }
 
