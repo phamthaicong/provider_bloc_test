@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider_bloc_test/UI/chat_detail_screen.dart';
 import '../Common/navigation_extention.dart';
 
-class MessgerScreen extends StatefulWidget {
+class MessengerScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return Messger();
+    return Messenger();
   }
 }
 
-class Messger extends State<MessgerScreen> {
+class Messenger extends State<MessengerScreen> {
   final fireStore = FirebaseFirestore.instance;
 
   @override

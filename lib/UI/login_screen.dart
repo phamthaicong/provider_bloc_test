@@ -40,7 +40,7 @@ class Login extends State<LoginScreen> {
     LogInBloc()
         .doLogin(usernameControl.text, passwordControl.text, context)
         .then((value) => {
-              print("value--->$value"),
+              // print("value--->$value"),
               if (value == true) {context.replaceWith(BottomNavigation())}
             });
   }

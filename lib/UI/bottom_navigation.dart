@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_bloc_test/UI/home_screen.dart';
-import 'package:provider_bloc_test/UI/messger_user.dart';
+import 'package:provider_bloc_test/UI/messenger_user.dart';
 import 'friend_screen.dart';
 import 'profile_screen.dart';
 
@@ -31,7 +31,7 @@ class Body extends State<BottomNavigation> {
       case 1:
         return FriendScreen();
       case 2:
-        return MessgerScreen();
+        return MessengerScreen();
       case 3 :
         return ProfileScreen();
     }
