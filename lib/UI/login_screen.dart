@@ -86,7 +86,7 @@ class Login extends State<LoginScreen> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 5),
+          padding: EdgeInsets.only(left: 5) ,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
